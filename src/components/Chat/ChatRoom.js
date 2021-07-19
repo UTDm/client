@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
+import { Link } from "react-router-dom";
 
 import './ChatRoom.css';
 import queryString from 'query-string';
@@ -28,6 +29,12 @@ const ChatRoom = ({location}) => {
         dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
 
+    //Leave room method
+    const leaveRoom = async() => {
+        socket.emit('disconnected', {});
+        socket.off();
+    }
+
     //re-render this block whenever ENDPOINT change
     useEffect(() => {
         const { name, room } = queryString.parse(location.search);
@@ -38,11 +45,11 @@ const ChatRoom = ({location}) => {
             setUserId(socket.id)
         });
 
-        setName(name)
-        setRoomId(room)
-
-        socket.emit('join', {name: name, roomId: roomId})
-    }, [ENDPOINT]);
+        setName(name);
+        setRoomId(room);
+        
+        socket.emit('join', {name: name, roomId: room});
+    }, [ENDPOINT, location.search]);
 
     //TODO: remove current user and navigate to Join page
 
@@ -61,24 +68,37 @@ const ChatRoom = ({location}) => {
     //TODO: Scroll bar is too big
     //TODO: Add send image feature
     return (
-        <div className="chatroom">
-            <main>
-                {messages.map(message => (
-                    <ChatMessage
-                        key={message.id}
-                        message={message}
-                        userId={userId}
-                    ></ChatMessage>
-                ))}
-                <span ref={dummy}></span>
-            </main>
-            
-            <form onSubmit={sendMessage}>
-                <input value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} placeholder="say something nice" />
+        <div>
+            <header>
+                <h1>⚛️🔥💬</h1>
+                <Link onClick={leaveRoom} to={`/`}>
+                    <button className={'button mt-20'} type="button">Leave Room</button>
+                </Link>
+            </header>
 
-                <button type="submit" disabled={!inputMessage}>🕊️</button>
-            </form>
+            <section>
+                <div className="chatroom">
+                    <main>
+                        {messages.map(message => (
+                            <ChatMessage
+                                key={message.id}
+                                message={message}
+                                userId={userId}
+                            ></ChatMessage>
+                        ))}
+                        <span ref={dummy}></span>
+                    </main>
+
+                    <form onSubmit={sendMessage}>
+                        <input value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} placeholder="say something nice" />
+
+                        <button type="submit" disabled={!inputMessage}>🕊️</button>
+                    </form>
+                </div>
+            </section>
+
         </div>
+
     );
 }
 

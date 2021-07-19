@@ -5,7 +5,9 @@ function ChatMessage (props) {
     const { message, userId } = props;
 
     //classify message type
-    const messageClass = message.from === userId ? 'sent' : 'received';
+    let messageClass = message.from === userId ? 'sent' : 'received';
+
+    if (message.from === 'admin') messageClass = 'admin';
 
     //TODO: Display name of message'owner
     return (
