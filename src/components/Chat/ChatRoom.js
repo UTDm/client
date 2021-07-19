@@ -72,7 +72,7 @@ const ChatRoom = ({location}) => {
             <header>
                 <h1>⚛️🔥💬</h1>
                 <Link onClick={leaveRoom} to={`/`}>
-                    <button className={'button mt-20'} type="button">Leave Room</button>
+                    <button className={'leaveRoom'} type="button">Leave Room</button>
                 </Link>
             </header>
 

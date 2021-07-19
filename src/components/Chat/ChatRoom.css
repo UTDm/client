@@ -104,8 +104,12 @@ button:disabled {
   margin: 0 auto;
 }
 
-
-
+.leaveRoom {
+  color: #282c34;
+  background: green;
+  width: 100%;
+  margin: 0 auto;
+}
 
 ul, li {
   text-align: left;
