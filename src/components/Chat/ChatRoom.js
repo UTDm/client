@@ -44,7 +44,6 @@ const ChatRoom = ({location}) => {
         const { name, uid, room } = queryString.parse(location.search);
 
         socket = io(ENDPOINT);
-        console.log(uid)
         
         setName(name);
         setUserId(uid);
