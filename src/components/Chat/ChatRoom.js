@@ -24,31 +24,33 @@ const ChatRoom = ({location}) => {
     const sendMessage = async (e) => {
         e.preventDefault();
         
-        socket.emit('sendMessage', inputMessage);
+        socket.emit('sendMessage', {context: inputMessage, from: userId});
         setInputMessage('');
         dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
 
     //Leave room method
     const leaveRoom = async() => {
-        socket.emit('disconnected', {});
+        socket.emit('disconnected', userId);
         socket.off();
     }
 
+    useEffect(() => {
+        window.addEventListener("beforeunload", leaveRoom); 
+    });
+
     //re-render this block whenever ENDPOINT change
     useEffect(() => {
-        const { name, room } = queryString.parse(location.search);
+        const { name, uid, room } = queryString.parse(location.search);
 
         socket = io(ENDPOINT);
-        //TODO: create a persistent userId instead of using socket.id
-        socket.on('connect' , () => {
-            setUserId(socket.id)
-        });
-
+        console.log(uid)
+        
         setName(name);
+        setUserId(uid);
         setRoomId(room);
         
-        socket.emit('join', {name: name, roomId: room});
+        socket.emit('join', {name: name, userId: uid, roomId: room});
     }, [ENDPOINT, location.search]);
 
     //TODO: remove current user and navigate to Join page
