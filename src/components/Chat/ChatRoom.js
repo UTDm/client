@@ -12,7 +12,7 @@ const ChatRoom = ({location}) => {
 
     //State
     const [name, setName] = useState('');
-    const [roomId, setRoomId] = useState('');
+    const [course, setCourse] = useState('');
     const [users, setUsers] = useState('');
     const [inputMessage, setInputMessage] = useState('');
     const [messages, setMessages] = useState([]);
@@ -41,15 +41,15 @@ const ChatRoom = ({location}) => {
 
     //re-render this block whenever ENDPOINT change
     useEffect(() => {
-        const { name, uid, room } = queryString.parse(location.search);
+        const { name, uid, course } = queryString.parse(location.search);
 
         socket = io(ENDPOINT);
         
         setName(name);
         setUserId(uid);
-        setRoomId(room);
+        setCourse(course);
         
-        socket.emit('join', {name: name, userId: uid, roomId: room});
+        socket.emit('join', {name: name, userId: uid, course: course});
     }, [ENDPOINT, location.search]);
 
     //TODO: remove current user and navigate to Join page

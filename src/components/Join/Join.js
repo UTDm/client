@@ -68,7 +68,7 @@ export default function Join() {
             <Typography fontSize="12px">{option.name}</Typography>
           )}
         />
-        <Link onClick={e => (!name || !course) ? e.preventDefault() : null} to={`/chatroom?name=${name}&uid=${uid}&room=${customTrim(course)}`}>
+        <Link onClick={e => (!name || !course) ? e.preventDefault() : null} to={`/chatroom?name=${name}&uid=${uid}&course=${customTrim(course)}`}>
           <button className={'button mt-20'} type="submit">Sign In</button>
         </Link>
       </div>
