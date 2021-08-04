@@ -29,6 +29,12 @@ export default function Join() {
     }
   }
 
+  const validateCourse = (e) => {
+    if (!name || !course || courses.indexOf({name: course}) >= 0) {
+      e.preventDefault();
+    }
+  }
+
   const handleOnChange = (e) => {
     setCourse(e.target.value);
   }
@@ -68,7 +74,7 @@ export default function Join() {
             <Typography fontSize="12px">{option.name}</Typography>
           )}
         />
-        <Link onClick={e => (!name || !course || !(course in courses)) ? e.preventDefault() : null} to={`/chatroom?name=${name}&uid=${uid}&course=${customTrim(course)}`}>
+        <Link onClick={validateCourse} to={`/chatroom?name=${name}&uid=${uid}&course=${customTrim(course)}`}>
           <button className={'button mt-20'} type="submit">Sign In</button>
         </Link>
       </div>
