@@ -1,4 +1,5 @@
-#UTDm
+# UTDm
+
 A chatting platform that facilitates peer learning during online classes using Socket.IO library to
 provide instant messaging and pairing users based on over 2000 courses at UTD.
 
