@@ -1,3 +1,7 @@
+#UTDm
+A chatting platform that facilitates peer learning during online classes using Socket.IO library to
+provide instant messaging and pairing users based on over 2000 courses at UTD.
+
 # Cor Policy for development purpose
 open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security
 
